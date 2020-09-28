@@ -4,6 +4,18 @@ using System.Text;
 
 namespace HelloWorld
 {
+
+    struct Player
+    {
+        public int health;
+        public int damage;
+    }
+
+    struct Item
+    {
+        public int statBoost;
+    }
+
     class Game
     {
         bool _gameOver = false;
@@ -70,10 +82,11 @@ namespace HelloWorld
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
             Console.Clear();
-            input = GetInput("Say yes", "Say no",);
+            input = GetInput("Say yes", "Say no", "What will you do?");
             if(input == '1')
             {
                 Console.Clear();
+
             }
 
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace HelloWorld
 {
@@ -8,10 +9,13 @@ namespace HelloWorld
     {
         private Item[] _inventory;
         private Item _currentWeapon;
+        private Item _hands;
 
         public Player() : base()
         {
             _inventory = new Item[3];
+            _hands.name = "These hands";
+            _hands.statBoost = 0;
         }
 
         public void AddItemToInventory(Item item, int index)
@@ -19,10 +23,26 @@ namespace HelloWorld
             _inventory[index] = item;
         }
 
+        public bool Contains(int itemIndex)
+        {
+            if (itemIndex > 0 && itemIndex < _inventory.Length)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public Player(string nameVal, int healthVal, int damageVal, int inventorySize)
             : base(healthVal, nameVal, damageVal)
         {
             _inventory = new Item[inventorySize];
+            _hands.name = "These hands";
+            _hands.statBoost = 0;
+        }
+
+        public Item[] GetInventory()
+        {
+            return _inventory;
         }
 
         public void EquipItem(int itemIndex)
@@ -30,7 +50,10 @@ namespace HelloWorld
             _damage = _inventory[itemIndex].statBoost;
         }
 
-        
+        public void UnequipItem()
+        {
+            _currentWeapon = _hands;
+        }
 
         public override float Attack(Character enemy)
         {

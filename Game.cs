@@ -6,53 +6,74 @@ using System.Text;
 namespace HelloWorld
 {
 
-    struct Player
-    {
-        public int health;
-        public int damage;
-    }
 
     struct Item
     {
+        public string name;
         public int statBoost;
     }
 
     class Game
     {
-        bool _gameOver = false;
-        string name = " the player";
+        private bool _gameOver = false;
+        private Player _player1;
+        private Enemy _enemy1;
+        private Enemy _enemy2;
+        private Enemy _enemy3;
+        private Item _longSword;
+        private Item _dagger;
+        private Item _bow;
+        private Item _wand;
+        private Item _mace;
         char input = ' ';
-        int playerHealth = 100;
-        int enemyHealth = 50;
-        void RequestName(ref string name)
+
+
+
+        public void InitializeItems()
         {
-            
-            //Initioalize input value
-            char input = ' ';
-            //Loop until valid input is given
-            while (input != '1')
+            _longSword.name = "Longsword";
+            _longSword.statBoost = 15;
+            _dagger.name = "Dagger";
+            _dagger.statBoost = 10;
+            _bow.name = "Bow";
+            _bow.statBoost = 14;
+            _wand.name = "Wand";
+            _wand.statBoost = 18;
+            _mace.name = "Mace";
+            _mace.statBoost = 22;
+        }
+
+        public Player CreateCharacter()
+        {
+            Console.WriteLine("What is your name?");
+            string name = Console.ReadLine();
+            Player player = new Player(name, 100, 10,5);
+            SelectItem(player);
+            return player;
+        }
+
+        public void InitializeEnemies()
+        {
+            _enemy1 = new Enemy("Bandit", 100, 10, 5);
+            _enemy2 = new Enemy("Bandit", 100, 10, 5);
+            _enemy3 = new Enemy("Bandit", 100, 10, 5);
+        }
+
+        public void SelectItem(Player player)
+        {
+            char input;
+            GetInput(out input, "Longsword", "Dagger", "Welcome! Please choose a weapon.");
+            if (input == '1')
             {
-                //Clear previous text
-                Console.Clear();
-                //Ask user fro name
-                Console.WriteLine("\nPlease enter your name.");
-                Console.Write("> ");
-                name = Console.ReadLine();
-                //Display username
-                Console.WriteLine("Hello " + name);
-                //Give the user the option to change their name
-                Console.WriteLine("Are you sure you want the name " + name + "?");
-                input = GetInput("Yes", "No", "Are you sure you want the name " + name + "?");
-                if(input == '2')
-                {
-                    Console.Clear();
-                    Console.WriteLine("Yeah that's a horrible name. Try again");
-                    Console.ReadKey();
-                }
-                
+                player.AddItemToInventory(_longSword, 0);
+            }
+            else if (input == '2')
+            {
+                player.AddItemToInventory(_dagger, 0);
             }
         }
 
+        
 
         void Explore()
         {
@@ -90,7 +111,7 @@ namespace HelloWorld
                 Console.WriteLine("You have entered a fight");
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
-                _gameOver = StartBattle(ref playerHealth, ref enemyHealth);
+                StartBattle(_player1, _enemy1);
             }
             else if(input == '2')
             {
@@ -159,12 +180,12 @@ namespace HelloWorld
             }
             Console.WriteLine(exitMessage);
         }
-        bool StartBattle(ref int playerHealth, ref int enemyHealth)
+        bool StartBattle(Character fighter1, Character fighter2)
         {
             //initialize the input variable
             char input = ' ';
             //Creat battle loop. Loops until the player or enemy is dead
-            while(playerHealth > 0 && enemyHealth > 0)
+            while(fighter1.GetIsAlive()  && fighter2.GetIsAlive())
             {
                 Console.Clear();
                 //Get input from player
@@ -172,8 +193,9 @@ namespace HelloWorld
                 //If input is 1 then yhe player attacks the enemy
                 if(input == '1')
                 {
-                    enemyHealth -= 20;
-                    Console.WriteLine("You attacked and did 20 damage");
+                    float damageTaken = 0;
+                    damageTaken = fighter1.Attack(fighter2);
+                    Console.WriteLine("You attacked and did " + damageTaken + " !");
                 }
                 //If input is 2 then teh payer blocked the enemy's attack
                 else if(input == '2')
@@ -182,22 +204,14 @@ namespace HelloWorld
                     Console.ReadKey();
                     continue;
                 }
-                playerHealth -= 5;
-                Console.WriteLine("The enemy attacked and did 5 damage.");
+                float damageRecieved = 0;
+                damageRecieved = fighter2.Attack(fighter1);
+                Console.WriteLine(fighter2.GetName() + "attacked and did " + damageRecieved + " !");
                 Console.ReadKey();
             }
-            return playerHealth <= 0;
+            return fighter1.GetIsAlive();
         }
 
-
-        void ViewStats()
-        {
-            //Prints player stats to screen
-            Console.WriteLine(name);
-            Console.WriteLine("\nPress any key to continue.");
-            Console.Write("> ");
-            Console.ReadKey();
-        }
 
 
         char GetInput(string option1, string option2, string query)
@@ -220,11 +234,48 @@ namespace HelloWorld
                 //If the player input 3, call the view stats function
                 if(input == '3')
                 {
-                    ViewStats();
+                    _player1.PrintStats();
                 }
             }
             //retrun input received from user
             return input;
+        }
+
+        public void GetInput(out char input, string option1, string option2, string option3, string query)
+        {
+            Console.WriteLine(query);
+            Console.WriteLine("1." + option1);
+            Console.WriteLine("2." + option2);
+            Console.WriteLine("3." + option3);
+            Console.Write("> ");
+
+            input = ' ';
+            while (input != '1' && input != '2' && input != '3')
+            {
+                input = Console.ReadKey().KeyChar;
+                if (input != '1' && input != '2' && input != '3')
+                {
+                    Console.WriteLine("Invalid Input.");
+                }
+            }
+        }
+
+        public void GetInput(out char input, string option1, string option2, string query)
+        {
+            Console.WriteLine(query);
+            Console.WriteLine("1." + option1);
+            Console.WriteLine("2." + option2);
+            Console.Write("> ");
+
+            input = ' ';
+            while (input != '1' && input != '2')
+            {
+                input = Console.ReadKey().KeyChar;
+                if (input != '1' && input != '2')
+                {
+                    Console.WriteLine("Invalid Input.");
+                }
+            }
         }
 
         //Run the game
@@ -244,12 +295,14 @@ namespace HelloWorld
         {
             Console.WriteLine("Welcome to my game!!!!!!!!!");
             Console.ReadKey();
+            _player1 = CreateCharacter();
+            InitializeEnemies();
         }
 
         //Repeated until the game ends
         public void Update()
         {
-            RequestName(ref name);
+            
             Explore();
         }
 

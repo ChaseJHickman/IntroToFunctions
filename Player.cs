@@ -13,7 +13,7 @@ namespace HelloWorld
 
         public Player() : base()
         {
-            _inventory = new Item[3];
+            _inventory = new Item[10];
             _hands.name = "These hands";
             _hands.statBoost = 0;
         }

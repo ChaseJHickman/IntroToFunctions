@@ -49,7 +49,7 @@ namespace HelloWorld
         {
             Console.WriteLine("What is your name?");
             string name = Console.ReadLine();
-            Player player = new Player(name, 100, 10,5);
+            Player player = new Player(name, 100, 10,10);
             SelectItem(player);
             return player;
         }
@@ -224,7 +224,7 @@ namespace HelloWorld
                         damageTaken = fighter1.Attack(fighter2);
                         Console.WriteLine("You attacked and did " + damageTaken + " damage!");
                     }
-                    //If input is 2 then teh payer blocked the enemy's attack
+                    //If input is 2 then the player can switch their weapon to a different one that is in their inventory
                     else if (input == '2')
                     {
                         SwitchWeapons(_player1);

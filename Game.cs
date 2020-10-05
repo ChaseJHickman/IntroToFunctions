@@ -97,7 +97,7 @@ namespace HelloWorld
         }
 
             public void SwitchWeapons(Player player)
-        {
+            {
             Item[] inventory = player.GetInventory();
 
             char input = ' ';
@@ -206,57 +206,7 @@ namespace HelloWorld
                 Console.WriteLine("You apraoch the bandit hideout and prepare for battle.");
             }
         
-        void EnterRoom(int roomNumber)
-        {
-            string exitMessage = "";
-            switch (roomNumber)
-            {
-                case 0:
-                    {
-                        exitMessage = "You depart from Castle Grayskull";
-                        Console.WriteLine("Before you stands the entrance to Castle Grayskull");
-                        break;
-                        
-                    }
-                case 1:
-                case 2:
-                    {
-                        exitMessage = "You leave the kitchen";
-                        Console.WriteLine("You enter the castle's kitchen there's knives on the ground, rats everywhere, and moldy chicken");
-                        break;
-                    }
-
-                default:
-                    {
-                        exitMessage = "You left the hallway";
-                        Console.WriteLine("You enter a seemingly never ending hallway");
-                        break;
-                    }
-            }
-            if(roomNumber == 0)
-            {
-                exitMessage = "You depart from Castle Grayskill";
-                Console.WriteLine("Before you stands teh entrance to Castle Grayskull");
-            }
-            else if(roomNumber == 1)
-            {
-                exitMessage = "You leave the kitchen";
-                Console.WriteLine("You Enter the castle's kitchen. There's knives on the ground, rats everywhrere, and moldy chicken");
-            }
-            else if(roomNumber == 2)
-            {
-                exitMessage = "You left the hallway";
-                Console.WriteLine("You enter a seemingly never ending hallway");
-            }
-            Console.WriteLine("You are in room " + roomNumber);
-            char input = ' ';
-            input = GetInput("Go forward", "Go back", "Which direction would you like to go?");
-            if(input == '1')
-            {
-                EnterRoom(roomNumber + 1);
-            }
-            Console.WriteLine(exitMessage);
-        }
+        
         bool StartBattle(Character fighter1, Character fighter2)
             {
                 //initialize the input variable
@@ -277,9 +227,7 @@ namespace HelloWorld
                     //If input is 2 then teh payer blocked the enemy's attack
                     else if (input == '2')
                     {
-                        Console.WriteLine("You blocked your enemy's attack!");
-                        Console.ReadKey();
-                        continue;
+                        SwitchWeapons(_player1);
                     }
                     float damageRecieved = 0;
                     damageRecieved = fighter2.Attack(fighter1);
@@ -287,7 +235,7 @@ namespace HelloWorld
                     Console.ReadKey();
                 }
                 return fighter1.GetIsAlive();
-            }
+             }
 
 
 

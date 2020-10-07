@@ -20,5 +20,10 @@ namespace HelloWorld
             _character = character;
             _roomItems = items;
         }
+
+        public void Room1()
+        {
+
+        }
     }
 }

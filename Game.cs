@@ -17,11 +17,11 @@ namespace HelloWorld
     class Game
     {
         private bool _gameOver = false;
-        private Player _player1;
-        private Enemy _enemy1;
-        private Enemy _enemy2;
-        private Enemy _enemy3;
-        private Enemy _enemy4;
+        private Character _player1;
+        private Character _enemy1;
+        private Character _enemy2;
+        private Character _enemy3;
+        private Character _enemy4;
         private Item _longSword;
         private Item _dagger;
         private Item _bow;
@@ -45,27 +45,27 @@ namespace HelloWorld
             _mace.statBoost = 22;
         }
 
-        public Player CreateCharacter()
+        public Character CreateCharacter()
         {
             Console.WriteLine("What is your name?");
             string name = Console.ReadLine();
-            Player player = new Player(name, 100, 10,10);
+            Character player = new Character(name, 100, 10,10);
             SelectItem(player);
             return player;
         }
 
         public void InitializeEnemies()
         {
-            _enemy1 = new Enemy("Bandit", 100, 10, 5);
-            _enemy2 = new Enemy("Bandit", 100, 10, 5);
-            _enemy3 = new Enemy("Bandit", 100, 10, 5);
-            _enemy4 = new Enemy("Boss Bandit", 135, 15, 5);
+            _enemy1 = new Character("Bandit", 100, 10, 5);
+            _enemy2 = new Character("Bandit", 100, 10, 5);
+            _enemy3 = new Character("Bandit", 100, 10, 5);
+            _enemy4 = new Character("Boss Bandit", 135, 15, 5);
         }
 
-        public void SelectItem(Player player)
+        public void SelectItem(Character player)
         {
             char input;
-            GetInput(out input, "Longsword", "Dagger", "Welcome! Please choose a weapon.");
+            GetInput(out input, "Longsword", "Dagger", "Bow", "Wand", "Mace", "Welcome! Please choose a weapon.");
             if (input == '1')
             {
                 player.AddItemToInventory(_longSword, 0);
@@ -73,6 +73,18 @@ namespace HelloWorld
             else if (input == '2')
             {
                 player.AddItemToInventory(_dagger, 0);
+            }
+            else if (input == '3')
+            {
+                player.AddItemToInventory(_bow, 0);
+            }
+            else if (input == '4')
+            {
+                player.AddItemToInventory(_wand, 0);
+            }
+            else if (input == '5')
+            {
+                player.AddItemToInventory(_mace, 0);
             }
         }
 
@@ -96,68 +108,28 @@ namespace HelloWorld
             reader.Close();
         }
 
-            public void SwitchWeapons(Player player)
-            {
-            Item[] inventory = player.GetInventory();
-
-            char input = ' ';
-            for (int i = 0; i < inventory.Length; i++)
-            {
-                Console.WriteLine((i + 1) + ". " + inventory[i].name + " \n Damage: " + inventory[i].statBoost);
-            }
-            Console.Write("> ");
-            input = Console.ReadKey().KeyChar;
-            switch (input)
-            {
-                case '1':
-                    {
-                        player.EquipItem(0);
-                        Console.WriteLine("You equipped " + inventory[0].name);
-                        Console.WriteLine("Base Damage increased by " + inventory[0].statBoost);
-                        break;
-                    }
-                case '2':
-                    {
-                        player.EquipItem(1);
-                        Console.WriteLine("You equipped " + inventory[1].name);
-                        Console.WriteLine("Base Damage increased by " + inventory[1].statBoost);
-                        break;
-                    }
-                case '3':
-                    {
-                        player.EquipItem(2);
-                        Console.WriteLine("You equipped " + inventory[2].name);
-                        Console.WriteLine("Base Damage increased by " + inventory[2].statBoost);
-                        break;
-                    }
-                default:
-                    {
-                        player.UnequipItem();
-                        Console.WriteLine("You accidently dropped your weapon! \nUnfortunate...");
-                        break;
-                    }
-            }
+           
         
-     }
+     
 
-            void Explore()
-            {
-                Console.WriteLine("You came to a cross road.");
-                input = GetInput("Go Left", "Go right", "You came to a cross road.");
-                if (input == '1')
-                {
-                    Console.Clear();
-                    Console.WriteLine("You decide to go left and a trap is sprung. " +
+        void Explore()
+        {
+             Console.WriteLine("You came to a cross road.");
+             input = GetInput("Go Left", "Go right", "You came to a cross road.");
+             if (input == '1')
+             {
+                Console.Clear();
+                Console.WriteLine("You decide to go left and a trap is sprung. " +
                         "You're covered up to your chin in quick sand");
-                    _gameOver = true;
-                }
-                else if (input == '2')
-                {
-                    Console.Clear();
-                    Console.WriteLine("You head down the right path and see some structures in the distance.");
-                    Console.WriteLine("Press any key to continue.");
-                    Console.ReadKey();
-                }
+                _gameOver = true;
+             }
+             else if (input == '2')
+             {
+                 Console.Clear();
+                 Console.WriteLine("You head down the right path and see some structures in the distance.");
+                 Console.WriteLine("Press any key to continue.");
+                 Console.ReadKey();
+             }
 
                 Console.Clear();
                 Console.WriteLine("After a bit of walking you come across an old town.");
@@ -197,14 +169,14 @@ namespace HelloWorld
                 Console.Clear();
                 Console.WriteLine("After beating the hell out of the bandit you intimidatingly question him about where the rest of his group is.");
                 Console.WriteLine("Bandit: HEY LOOK MAN I'LL TELL YOU JUST DON'T HURT ME!");
-                Console.WriteLine("Bandit: THEY'RE HIDEOUT IS AT THE BASE OF THE BIG MOUNTAIN TO THE NORTHEAST OF HERE NOW PLEASE LET ME GO!");
+                Console.WriteLine("Bandit: THEIR HIDEOUT IS AT THE BASE OF THE BIG MOUNTAIN TO THE NORTHEAST OF HERE NOW PLEASE LET ME GO!");
                 Console.WriteLine("With you're new information that was so kindly and willingly given to you, you decide to head off to said hideout.");
                 Console.WriteLine("Press any key to continue.");
                 Console.ReadKey();
 
                 Console.Clear();
                 Console.WriteLine("You apraoch the bandit hideout and prepare for battle.");
-            }
+        }
         
         
         bool StartBattle(Character fighter1, Character fighter2)
@@ -216,7 +188,7 @@ namespace HelloWorld
                 {
                     Console.Clear();
                     //Get input from player
-                    input = GetInput("Attack", "Switch Weapon", "What will you do?");
+                    input = GetInput("Attack", "Use Item", "What will you do?");
                     //If input is 1 then yhe player attacks the enemy
                     if (input == '1')
                     {
@@ -227,7 +199,7 @@ namespace HelloWorld
                     //If input is 2 then the player can switch their weapon to a different one that is in their inventory
                     else if (input == '2')
                     {
-                        SwitchWeapons(_player1);
+                         
                     }
                     float damageRecieved = 0;
                     damageRecieved = fighter2.Attack(fighter1);
@@ -279,6 +251,27 @@ namespace HelloWorld
             {
                 input = Console.ReadKey().KeyChar;
                 if (input != '1' && input != '2' && input != '3')
+                {
+                    Console.WriteLine("Invalid Input.");
+                }
+            }
+        }
+
+        public void GetInput(out char input, string option1, string option2, string option3, string option4, string option5, string query)
+        {
+            Console.WriteLine(query);
+            Console.WriteLine("1." + option1);
+            Console.WriteLine("2." + option2);
+            Console.WriteLine("3." + option3);
+            Console.WriteLine("4." + option4);
+            Console.WriteLine("5." + option5);
+            Console.Write("> ");
+
+            input = ' ';
+            while (input != '1' && input != '2' && input != '3' && input != '4' && input != '5')
+            {
+                input = Console.ReadKey().KeyChar;
+                if (input != '1' && input != '2' && input != '3' && input != '4' && input != '5')
                 {
                     Console.WriteLine("Invalid Input.");
                 }

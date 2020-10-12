@@ -51,6 +51,7 @@ namespace HelloWorld
             string name = Console.ReadLine();
             Character player = new Character(name, 100, 10,10);
             SelectItem(player);
+            player.EquipItem(10);
             return player;
         }
 

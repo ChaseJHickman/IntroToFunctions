@@ -51,7 +51,11 @@ namespace HelloWorld
             string name = Console.ReadLine();
             Character player = new Character(name, 100, 10,10);
             SelectItem(player);
+<<<<<<< Updated upstream
             player.EquipItem(10);
+=======
+            
+>>>>>>> Stashed changes
             return player;
         }
 
@@ -177,10 +181,13 @@ namespace HelloWorld
 
                 Console.Clear();
                 Console.WriteLine("You apraoch the bandit hideout and prepare for battle.");
+
+            Rooms.Room1();
+            StartBattle(_player1,_enemy2);
         }
         
         
-        bool StartBattle(Character fighter1, Character fighter2)
+       public bool StartBattle(Character fighter1, Character fighter2)
             {
                 //initialize the input variable
                 char input = ' ';

@@ -21,12 +21,33 @@ namespace HelloWorld
             _roomItems = items;
         }
 
+<<<<<<< Updated upstream
         char GetInput(string option1, string option2, string query)
         {
             char input = ' ';
         }
 
         public void Room1()
+=======
+        public static void Room1()
+        {
+            Console.WriteLine("With your guard up and wits about you, you enter the hideout.");
+            Console.WriteLine("You walk into a somewhat small space that's lit by wall-mounted torches.");
+            Console.WriteLine("After you check your surroundings, you are confronted by a bandit on patrol.");
+        }
+
+        public static void Room2()
+        {
+            
+        }
+
+        public static void Room3()
+        {
+
+        }
+
+        public static void Room4()
+>>>>>>> Stashed changes
         {
             Console.WriteLine("As you enter the hideout, you walk into a small room with a few torches mounted along the walls.");
             Console.WriteLine("While taking in your surroundings, a bandit comes in through a hallway to your left.");

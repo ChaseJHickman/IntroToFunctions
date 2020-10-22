@@ -51,11 +51,9 @@ namespace HelloWorld
             string name = Console.ReadLine();
             Character player = new Character(name, 100, 10,10);
             SelectItem(player);
-<<<<<<< Updated upstream
+
             player.EquipItem(10);
-=======
-            
->>>>>>> Stashed changes
+
             return player;
         }
 
@@ -184,6 +182,22 @@ namespace HelloWorld
 
             Rooms.Room1();
             StartBattle(_player1,_enemy2);
+
+            Rooms.Room2();
+            StartBattle(_player1, _enemy3);
+
+            Rooms.Room3();
+            _player1.Heal();
+
+            Rooms.Room4();
+            StartBattle(_player1, _enemy4);
+
+            Console.WriteLine("After defeating the boss you take his head as proof of your deed and go back to the town to collect your bounty.");
+            Console.WriteLine("Once you arrive to town you meet with the guard who gave you your mission.");
+            Console.WriteLine("Guard: Thank you so much for taking care of the bandtis. We would've done it ourselfs but we're a bit spread thi-");
+            Console.WriteLine("You cut off the guard cause you no longer want to do this adventurer stuff. Too difficult and life threatening.");
+            Console.WriteLine("You get a real job and become a funtioning member of society. Good job.");
+
         }
         
         
@@ -196,7 +210,7 @@ namespace HelloWorld
                 {
                     Console.Clear();
                     //Get input from player
-                    input = GetInput("Attack", "Use Item", "What will you do?");
+                    input = GetInput("Attack", "Defend", "What will you do?");
                     //If input is 1 then yhe player attacks the enemy
                     if (input == '1')
                     {
@@ -207,7 +221,7 @@ namespace HelloWorld
                     //If input is 2 then the player can switch their weapon to a different one that is in their inventory
                     else if (input == '2')
                     {
-                         
+                        Console.WriteLine("Sorry I didn't put that in. You're still gonna get hit though.");
                     }
                     float damageRecieved = 0;
                     damageRecieved = fighter2.Attack(fighter1);
@@ -328,8 +342,8 @@ namespace HelloWorld
         //Repeated until the game ends
         public void Update()
         {
-            
             Explore();
+            End();
         }
 
         //Performed once when the game ends

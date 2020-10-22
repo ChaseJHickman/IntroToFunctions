@@ -65,7 +65,7 @@ namespace HelloWorld
 
         public void EquipItem(int itemIndex)
         {
-            _damage = _inventory[itemIndex].statBoost;
+            _damage = _currentWeapon.statBoost;
         }
 
         public void UnequipItem()
@@ -81,6 +81,14 @@ namespace HelloWorld
                 _health = 0;
             }
             return damageVal;
+        }
+
+        public bool Heal()
+        {
+            if (_health < 100)
+                _health++;
+
+            return true;
         }
 
         public virtual void Save(StreamWriter writer)

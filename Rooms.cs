@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks.Dataflow;
 
 namespace HelloWorld
 {
@@ -15,53 +16,39 @@ namespace HelloWorld
             _roomItems = new Item[4];
         }
 
-        public Rooms(Character character, Item[] items)
-        {
-            _character = character;
-            _roomItems = items;
-        }
 
-<<<<<<< Updated upstream
-        char GetInput(string option1, string option2, string query)
-        {
-            char input = ' ';
-        }
-
-        public void Room1()
-=======
         public static void Room1()
         {
             Console.WriteLine("With your guard up and wits about you, you enter the hideout.");
             Console.WriteLine("You walk into a somewhat small space that's lit by wall-mounted torches.");
             Console.WriteLine("After you check your surroundings, you are confronted by a bandit on patrol.");
+            Console.WriteLine("Bandit: Hey, you there! You aren't supposed to be here. Leave now or I'll gut ya!");
+            
         }
 
         public static void Room2()
         {
-            
+            Console.WriteLine("After your victory you head down into a small, possibly man-made, hallway." +
+                "It's well lit with mounted torches. Glad to know you won't need to be a cat person just to see. ¬_¬");
+            Console.WriteLine("As you make your way down the hallway you see a guard, asleep in a chair.");
+            Console.WriteLine("You do the smart thing and try to sneak past him. Sadly though, sneak isn't a stat cause it's weird." +
+                "The guard wakes up and prepares for battle, as should you.");
         }
 
         public static void Room3()
         {
-
+            Console.WriteLine("You've once again triumphed against your foe. You move on to the next room. This hideout is awefully liniar");
+            Console.WriteLine("In the next room you see beds and end tables lined very neatly agains the walls.");
+            Console.WriteLine("After searching the room for a bit the only thing you find that is usefull to you is a healing potion, which you promptly drink.");
+            Console.WriteLine("You are healed back to full health.");
         }
 
         public static void Room4()
->>>>>>> Stashed changes
         {
-            Console.WriteLine("As you enter the hideout, you walk into a small room with a few torches mounted along the walls.");
-            Console.WriteLine("While taking in your surroundings, a bandit comes in through a hallway to your left.");
-            Console.WriteLine("Bandit: Who are you? Get out, this is our base!");
+            Console.WriteLine("After drinking your potion that you ... found... you head off into the next room. Something tells you that this is the last room.");
+            Console.WriteLine("As you enter the final room you are greeted by a badit that definitely looks bigger and stronger than all the others you've fought.");
+            Console.WriteLine("Boss: How'd you get down here!? Those good for nothing goons! YOU'RE DEAD!!");
         }
 
-        public void Room2()
-        {
-            Console.WriteLine("Once you defeat the bandit, you go down the hallway they entered from.");
-            Console.WriteLine("After walking for about a minute or so, you come to another room, fairly similar to the previous one.");
-            Console.WriteLine("You see someone against the east wall, but they don't seem hostile.");
-            Console.WriteLine("Stranger: Are you here to stop these criminals? If you are, let me help. I'm a healer." +
-                "I'm not much for fighting but if needed I can heal you. All I ask is that you escort me out of here.");
-
-        }
     }
 }
